@@ -1,0 +1,8 @@
+const env={
+    NEXT_PUBLIC_TMDB:process.env.NEXT_PUBLIC_TMDB,
+    NEXT_PUBLIC_API_URL:process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_TMDB_ATOKEN:process.env.NEXT_PUBLIC_TMDB_ATOKEN,
+    NEXT_PUBLIC_MEDIA_URL:process.env.NEXT_PUBLIC_MEDIA_URL
+};
+
+export default env;

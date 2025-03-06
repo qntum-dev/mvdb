@@ -1,101 +1,144 @@
+import MoviesCard from "@/components/Movies/MoviesCard";
+import ShowsCard from "@/components/Shows/ShowsCard";
+import env from "@/lib/env";
+import kyServer from "@/lib/ky";
+import { Movies, Persons, Shows } from "@/lib/types";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  // const head = "Trending today";
+  // const subHead = "Today's trending movies";
+  // const url = "trending/movie/day";
+  const trending_movies: Movies = await kyServer
+    .get("trending/movie/day")
+    .json();
+  console.log(trending_movies);
+
+  const popular_movies: Movies = await kyServer.get("movie/popular").json();
+
+  const popular_people: Persons = await kyServer.get("person/popular").json();
+
+  const trending_shows:Shows =await kyServer.get("trending/tv/day").json();
+
+  // console.log(trending_shows);
+  
+  // const popular_shows:
+
+  // console.log(popular_people);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      <div className="flex flex-col gap-16">
+        
+{/* Trending movie section */}
+        <div className="">
+          <div className="w-fit group">
+            <Link className="" href={`trending`}>
+              <div className="flex items-center w-fit">
+                <p className="text-2xl font-bold">Tren<span className="text-red-500">ding</span> today</p>
+                <ChevronRight
+                  strokeWidth={3}
+                  size={40}
+                  fontWeight={"bold"}
+                  className="text-white duration-200 group-hover:text-red-500"
+                />
+              </div>
+            </Link>
+          </div>
+          <div className="">
+            <p className="text-gray-300 tracking-wider">
+              {"Today's trending movies"}
+            </p>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          <div className="mt-3">
+            <MoviesCard movies={trending_movies} />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+
+{/* Popular person section */}
+        <div className="flex flex-col gap-6">
+          <div className="">
+            <p className="text-2xl font-bold">Most <span className="text-red-500">Famous</span> People</p>
+          </div>
+          <div className="flex gap-6 overflow-auto">
+            {popular_people.results.map((people) => (
+              <Link
+                href={`${people.original_name.toLowerCase()}`}
+                key={people.id}
+              >
+                <div className="w-36">
+                  <Image
+                    src={`${env.NEXT_PUBLIC_MEDIA_URL}/w500/${people.profile_path}`}
+                    alt={people.original_name}
+                    width={500}
+                    height={500}
+                    // className="rounded-full"
+                    objectFit="cover"
+                  />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+
+{/* Popular movie section */}
+        <div className="">
+          <div className="w-fit group">
+            <Link className="" href={`popular`}>
+              <div className="flex items-center w-fit">
+                <p className="text-2xl font-bold"><span className="text-red-500">Pop</span>ular Movies</p>
+                <ChevronRight
+                  strokeWidth={3}
+                  size={40}
+                  fontWeight={"bold"}
+                  className="text-white duration-200 group-hover:text-red-500"
+                />
+              </div>
+            </Link>
+          </div>
+          <div className="">
+            <p className="text-gray-300 tracking-wider">
+              {"Explore the most popular movies"}
+            </p>
+          </div>
+
+          <div className="mt-3">
+            <MoviesCard movies={popular_movies} />
+          </div>
+        </div>
+
+{/* Trending Shows section */}
+<div className="">
+          <div className="w-fit group">
+            <Link className="" href={`popular`}>
+              <div className="flex items-center w-fit">
+                <p className="text-2xl font-bold">Tren<span className="text-red-500">ding Shows</span></p>
+                <ChevronRight
+                  strokeWidth={3}
+                  size={40}
+                  fontWeight={"bold"}
+                  className="text-white duration-200 group-hover:text-red-500"
+                />
+              </div>
+            </Link>
+          </div>
+          <div className="">
+            <p className="text-gray-300 tracking-wider">
+              {"Explore the trending shows of this week"}
+            </p>
+          </div>
+
+          <div className="mt-3">
+            <ShowsCard shows={trending_shows} />
+          </div>
+        </div>
+
+      </div>
+    </>
   );
 }
