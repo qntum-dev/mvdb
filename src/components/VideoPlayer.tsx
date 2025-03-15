@@ -6,10 +6,10 @@ const VideoPlayer = ({ url }: { url: string }) => {
     console.log(url);
 
     return (
-        <div className=" rounded-xl overflow-hidden w-[600px]  p-2">
-            <div className="overflow-hidden rounded-lg">
+        <div className="overflow-hidden h-[365px] rounded-bl-3xl rounded-tr-3xl border border-white">
+            <div className="overflow-hidden">
 
-            {url && <ReactPlayer url={url} controls={true} width="100%"/>}
+            {url && <ReactPlayer url={url} controls={true} width="100%" height={"365px"} />}
             </div>
         </div>
     );

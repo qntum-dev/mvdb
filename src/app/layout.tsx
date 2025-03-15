@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import SearchForm from "@/components/SearchForm";
+import SearchForm from "@/components/search/SearchForm";
+import { Suspense } from "react";
+// import { SearchContextProvider } from "@/components/search/SearchContextProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +31,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider defaultTheme="dark" enableSystem={false} attribute="class">
-          <div className="mt-2">
-
-          <SearchForm/>
-          </div>
-          <main className="mx-2 pt-6 lg:mx-12 md:mx-4">{children}</main>
+        <ThemeProvider
+          defaultTheme="dark"
+          enableSystem={false}
+          attribute="class"
+        >
+            <Suspense>
+              <div className="mt-2">
+                <SearchForm />
+              </div>
+              <main className="mx-2 pt-6 lg:mx-[170px] md:mx-4 mb-8">
+                {children}
+              </main>
+            </Suspense>
+          
         </ThemeProvider>
       </body>
     </html>

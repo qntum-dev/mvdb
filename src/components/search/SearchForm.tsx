@@ -1,12 +1,21 @@
 "use client";
 
 import { SearchIcon } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const SearchForm = () => {
+  const searchParams=useSearchParams();
+  const router=useRouter();
+  const [query, setQuery] = useState(() => {
+    return searchParams.get('query') || '';
+  });
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    router.push(`/search?query=${encodeURIComponent(query)}`);
+
     // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    // ✅ This will be type-safe and validated in the future.
     // console.log(e.target);
   }
 
@@ -23,6 +32,8 @@ const SearchForm = () => {
           type="search"
           className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           placeholder="Search for Movie, TV shows, Person name"
+          value={query}
+          onChange={(e)=>setQuery(e.target.value)}
           required
         />
         <button
