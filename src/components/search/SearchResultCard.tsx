@@ -35,7 +35,7 @@ const SearchResultCard = ({
                   className="object-cover object-center"
                 />
               </div> */}
-        <Img path={`${image_url}`} alt={name} w_perc={60}/>
+        <Img path={`${image_url}`} alt={name} w_perc={90}/>
       </div>
 
       <div className="hidden lg:block">
@@ -60,13 +60,13 @@ const SearchResultCard = ({
         )}
 
         <Link
-          className="text-xl hover:text-red-400"
+          className="lg:text-xl hover:text-red-400 text-center lg:text-start"
           href={`/${slugType}/${id}-${name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
         >
           {name}
           
         </Link>
-        <p className="mt-4 text-center lg:text-left">{overview}</p>
+        <p className="hidden lg:block mt-4 text-center lg:text-left line-clamp-4">{overview}</p>
       </div>
     </div>
   );

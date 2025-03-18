@@ -73,7 +73,7 @@ const SearchResults = () => {
 
   return (
     <div>
-      <div className="mt-1 lg:ml-10 flex flex-col gap-28 lg:gap-10 mx-auto">
+      <div className="mt-1 lg:ml-10 grid grid-cols-2 lg:flex lg:flex-col lg:gap-10 mx-auto gap-y-10 mb-10">
         {searchResults.results.map((result) => {
           const name =
             "title" in result
@@ -84,8 +84,8 @@ const SearchResults = () => {
 
           const image_url =
             "profile_path" in result
-              ? `w600_and_h900_bestv2/${result.profile_path}`
-              : `w880_and_h1320_face/${result.poster_path}`;
+              ? `w600_and_h900_bestv2${result.profile_path}`
+              : `w880_and_h1320_face${result.poster_path}`;
 
           const release_date =
             "release_date" in result

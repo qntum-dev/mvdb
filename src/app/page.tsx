@@ -66,6 +66,11 @@ async function TrendingMovies() {
 // Component for popular people section
 async function PopularPeople() {
   const popular_people: Persons = await kyServer.get("person/popular").json();
+  // console.log(popular_people);
+  console.log(popular_people);
+  
+  popular_people.results.map((people)=>console.log(people.profile_path));
+  
   return (
     <Slider
       gap="6"
@@ -74,15 +79,20 @@ async function PopularPeople() {
           href={`/person/${people.id}-${people.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
           key={people.id}
         >
-          <div className="flex flex-col items-center gap-4">
-            <Img w="200" h="200" path={`t/p/w276_and_h350_face/${people.profile_path}`} alt={people.name} rounded="full" border="border-red-400"/>
+          <div className="group flex flex-col items-center gap-4">
+            {people.profile_path ? (
+              
+              <Img w="200" h="200" path={`t/p/w276_and_h350_face${people.profile_path}`} alt={people.name} rounded="full" border="border-red-400"/>
+            ):(
+              <Img w="200" h="200" path={`https://avatar.iran.liara.run/username?username=${people.name.split(" ")[0]}+${people.name.split(" ")[1]}`} alt={people.name} rounded="full" border="border-red-400"/>
+            )}
             {/* <div
               className="w-[200px] h-[200px] bg-cover bg-center rounded-full border border-red-600"
               style={{
                 backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL}/t/p/w276_and_h350_face/${people.profile_path})`,
               }}
             ></div> */}
-            <div className="">{people.name}</div>
+            <div className="group-hover:text-red-400 duration-200">{people.name}</div>
           </div>
         </Link>
       ))}

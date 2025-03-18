@@ -5,7 +5,7 @@ import Link from "next/link";
 import Img from "../Img";
 
 const MoviesCard = ({ movie }: { movie: Movie }) => {
-  console.log(movie.id);
+  // console.log(movie.id);
 
   return (
     <>
@@ -16,7 +16,7 @@ const MoviesCard = ({ movie }: { movie: Movie }) => {
           href={`movie/${movie.id}-${movie.title.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
         >
           <div className="w-[220px] rounded-tr-full flex flex-col h-full justify-between  gap-5">
-            <div className="flex flex-col gap-4 ">
+            <div className="group flex flex-col gap-4 ">
             <Img alt={movie.title} h="320" path={`w440_and_h660_face/${movie.poster_path}`}/>
               {/* <div
                 className="h-[320px] bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white"
@@ -33,7 +33,7 @@ const MoviesCard = ({ movie }: { movie: Movie }) => {
                 height={660}
                 objectFit="cover"
               /> */}
-              <p className="hover:underline font-medium tracking-widest text-sm">
+              <p className="hover:underline font-medium tracking-widest text-sm group-hover:text-red-400 duration-200">
                 {movie.title}
               </p>
             </div>

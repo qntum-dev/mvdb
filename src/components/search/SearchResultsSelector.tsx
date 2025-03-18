@@ -12,7 +12,7 @@ const SearchResultsSelector = () => {
   }
   const firstSearchType = searchResults.results[0]?.media_type;
   // console.log(selected);
-  console.log(firstSearchType);
+  // console.log(firstSearchType);
 
   const result_types: ResultTypes = [
     { endpoint: "tv", display: "TV Shows", mediaType: "tv" },

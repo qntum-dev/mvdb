@@ -3,7 +3,6 @@
 // import { fetchDetails } from "@/lib/fetchDetails";
 import SearchPage from "@/components/search/SearchPage";
 
-
 import { fetchSearchResults } from "@/lib/fetchSearchResults";
 import { Movie, Person, SearchResultsType, Show } from "@/lib/types";
 import { Metadata } from "next";
@@ -12,10 +11,11 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
   // read route params
   const { query } = await searchParams;
-  
 
   return {
     title: `${query} - MVDB`,
@@ -35,28 +35,26 @@ export default async function Page({
 
   const { query, page } = await searchParams;
   if (!query) {
-    return;
+    return <div className="">No search results</div>;
   }
   if (page) {
     console.log(page);
   }
   const searchResults: SearchResultsType<Movie | Show | Person> =
-    await fetchSearchResults(query, id,page);
+    await fetchSearchResults(query, id, page);
 
   //   console.log(query);
   console.log(searchResults);
 
   console.log(searchResults.results[0]);
   console.log(searchResults.total_results);
-  const searchData={
+  const searchData = {
     page: page || "1",
     query,
     searchResults,
     slug: id,
+    pages: searchResults.total_pages,
   };
 
-  return (
-    <SearchPage searchData={searchData}/>
-    
-  );
+  return <SearchPage searchData={searchData} />;
 }

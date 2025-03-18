@@ -180,7 +180,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                       key={cast.id}
                       href={`/person/${cast.id}-${cast.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
                     >
-                      <div className="flex items-center gap-6 ">
+                      <div className="group flex items-center gap-6 ">
                         <div className="hidden lg:block">
                           <Img
                             alt={cast.name}
@@ -206,7 +206,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                           }}
                         ></div> */}
                         <div className="flex flex-col gap-1">
-                          <p className="text-xl lg:text-base">{cast.name}</p>
+                          <p className="text-xl lg:text-base group-hover:text-red-400">{cast.name}</p>
                           <p className="text-base text-gray-400 tracking-wide w-40 line-clamp-2">
                             {cast.character}
                           </p>
@@ -299,7 +299,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                       key={recommendation.id}
                       href={`${recommendation.id}-${recommendation.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
                     >
-                      <div className="flex gap-4 w-full border border-gray-600 p-4 rounded-xl">
+                      <div className="group flex gap-4 w-full border border-gray-600 p-4 rounded-xl">
                         <div className="w-[280px] rounded-lg overflow-hidden ">
                           <Image
                             alt={recommendation.name}
@@ -309,7 +309,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                           />
                         </div>
                         <div className="flex flex-col gap-2 w-full">
-                          <p className="">{recommendation.original_name}</p>
+                          <p className="group-hover:text-red-400">{recommendation.original_name}</p>
                           {recommendation.first_air_date != "" && (
                             <p className="text-gray-400">
                               {formatDate(recommendation.first_air_date)}

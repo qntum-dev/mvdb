@@ -5,7 +5,7 @@ import Link from "next/link";
 import Img from "../Img";
 
 const ShowsCard = ({ show }: { show: Show }) => {
-  console.log(show.id);
+  // console.log(show.id);
 
   return (
     <>
@@ -16,7 +16,7 @@ const ShowsCard = ({ show }: { show: Show }) => {
           href={`show/${show.id}-${show.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
         >
           <div className="w-[220px] rounded-tr-full flex flex-col h-full justify-between  gap-5">
-            <div className="flex flex-col gap-4 ">
+            <div className="group flex flex-col gap-4 ">
               <Img alt={show.name} h="320" path={`w440_and_h660_face/${show.poster_path}`}/>
               {/* <div className="relative h-[320px] w-full rounded-bl-3xl rounded-tr-3xl border border-white overflow-hidden">
                 <Image
@@ -33,7 +33,7 @@ const ShowsCard = ({ show }: { show: Show }) => {
                   backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w440_and_h660_face/${show.poster_path})`,
                 }}
               ></div> */}
-              <p className="hover:underline font-medium tracking-widest text-sm">
+              <p className="hover:underline font-medium tracking-widest text-sm group-hover:text-red-400 duration-200">
                 {show.name}
               </p>
             </div>

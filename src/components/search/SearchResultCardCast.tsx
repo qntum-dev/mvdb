@@ -15,6 +15,14 @@ const SearchResultCardCast = ({
   department: string;
   id: number;
 }) => {
+  // console.log(name);
+  
+  
+  
+  console.log(image_url);
+  
+  console.log(image_url.split("/")[1]);
+  
   return (
     <div>
       <div className="flex flex-col lg:flex-row items-center gap-6 ">
@@ -31,23 +39,44 @@ const SearchResultCardCast = ({
                   className="object-cover object-center"
                 />
               </div> */}
-          <Img
-            path={`${image_url}`}
-            alt={name}
-            h="240"
-            w="240"
-            rounded="full"
-          />
-        </div>
-
-        <div className="hidden lg:block">
-        <Img
+          {image_url.split("/")[1] ? (
+            <Img
             path={`${image_url}`}
             alt={name}
             h="120"
             w="120"
             rounded="full"
           />
+          ) : (
+            <Img
+            path={`https://avatar.iran.liara.run/username?username=${name.split(" ")[0]}`}
+            alt={name}
+            h="120"
+            w="120"
+            rounded="full"
+          />
+          )}
+        </div>
+
+        <div className="hidden lg:block">
+          {image_url.split("/")[1] ? (
+            <Img
+            path={`${image_url}`}
+            alt={name}
+            h="120"
+            w="120"
+            rounded="full"
+          />
+          ) : (
+            <Img
+            path={`https://avatar.iran.liara.run/username?username=${name.split(" ")[0]}`}
+            alt={name}
+            h="120"
+            w="120"
+            rounded="full"
+          />
+          )}
+        
           {/* <Img
             path={`${image_url}`}
             alt={name}
@@ -59,7 +88,7 @@ const SearchResultCardCast = ({
 
         <div className="flex flex-col gap-1  items-center lg:items-start">
           <Link
-            className="text-xl hover:text-red-400"
+            className="lg:text-xl hover:text-red-400"
             href={`/person/${id}-${name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
           >
             {name}
