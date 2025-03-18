@@ -1,8 +1,8 @@
-import env from "@/lib/env";
 import { formatDate } from "@/lib/formatDate";
 import { Show } from "@/lib/types";
 import { Star } from "lucide-react";
 import Link from "next/link";
+import Img from "../Img";
 
 const ShowsCard = ({ show }: { show: Show }) => {
   console.log(show.id);
@@ -17,12 +17,22 @@ const ShowsCard = ({ show }: { show: Show }) => {
         >
           <div className="w-[220px] rounded-tr-full flex flex-col h-full justify-between  gap-5">
             <div className="flex flex-col gap-4 ">
-              <div
+              <Img alt={show.name} h="320" path={`w440_and_h660_face/${show.poster_path}`}/>
+              {/* <div className="relative h-[320px] w-full rounded-bl-3xl rounded-tr-3xl border border-white overflow-hidden">
+                <Image
+                  alt={show.name}
+                  src={`${env.NEXT_PUBLIC_MEDIA_URL}/`}
+                  fill
+                  className="object-cover object-center"
+                />
+              </div> */}
+
+              {/* <div
                 className="h-[320px] bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white"
                 style={{
                   backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w440_and_h660_face/${show.poster_path})`,
                 }}
-              ></div>
+              ></div> */}
               <p className="hover:underline font-medium tracking-widest text-sm">
                 {show.name}
               </p>

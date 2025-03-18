@@ -17,15 +17,15 @@ const SearchPage = ({ searchData }: { searchData: SearchContextProps }) => {
   console.log(slug);
   return (
     <SearchContextProvider value={searchData}>
-      <div className="grid grid-cols-12">
-        <div className="col-span-3">
+      <div className="flex flex-col gap-10 lg:gap-0 lg:grid grid-cols-12 mx-auto">
+        <div className="lg:col-span-3">
           {slug ? (
             <SearchResultsSelector/>
           ) : (
             <SearchResultsSelector />
           )}
         </div>
-        <div className="col-span-9">
+        <div className="lg:col-span-9">
           <SearchResults/>
         </div>
       </div>

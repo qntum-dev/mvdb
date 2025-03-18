@@ -10,7 +10,6 @@ import {
 import { useSearchContext } from "./SearchContextProvider";
 import { useRouter } from "next/navigation";
 import SearchResultCard from "./SearchResultCard";
-import env from "@/lib/env";
 import SearchResultCardCast from "./SearchResultCardCast";
 
 const SearchResults = () => {
@@ -74,32 +73,34 @@ const SearchResults = () => {
 
   return (
     <div>
-      <div className="mt-1 ml-10 flex flex-col gap-10">
+      <div className="mt-1 lg:ml-10 flex flex-col gap-28 lg:gap-10 mx-auto">
         {searchResults.results.map((result) => {
           const name =
             "title" in result
               ? result.title
               : "name" in result
-              ? result.name
-              : "Unknown";
+                ? result.name
+                : "Unknown";
 
           const image_url =
             "profile_path" in result
-              ? `${env.NEXT_PUBLIC_MEDIA_URL}/w188_and_h282_bestv2/${result.profile_path}`
-              : `${env.NEXT_PUBLIC_MEDIA_URL}/w188_and_h282_bestv2/${result.poster_path}`;
+              ? `w600_and_h900_bestv2/${result.profile_path}`
+              : `w880_and_h1320_face/${result.poster_path}`;
 
           const release_date =
             "release_date" in result
               ? result.release_date
               : "first_air_date" in result
-              ? result.first_air_date
-              : "";
+                ? result.first_air_date
+                : "";
 
-          const overview = "overview" in result && result.overview ? result.overview : "";
+          const overview =
+            "overview" in result && result.overview ? result.overview : "";
 
           const known_for = "known_for" in result ? result.known_for : null;
 
-          const department="known_for_department" in result ? result.known_for_department :""
+          const department =
+            "known_for_department" in result ? result.known_for_department : "";
 
           return !known_for ? (
             <SearchResultCard
@@ -113,6 +114,7 @@ const SearchResults = () => {
             />
           ) : (
             <SearchResultCardCast
+              id={result.id}
               key={result.id}
               image_url={image_url}
               name={name}

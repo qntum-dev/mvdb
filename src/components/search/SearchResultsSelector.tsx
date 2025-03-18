@@ -10,7 +10,7 @@ const SearchResultsSelector = () => {
   if (!searchResults) {
     return;
   }
-  const firstSearchType = searchResults.results[0].media_type;
+  const firstSearchType = searchResults.results[0]?.media_type;
   // console.log(selected);
   console.log(firstSearchType);
 
@@ -48,7 +48,7 @@ const SearchResultsSelector = () => {
     </Link>
   );
   return (
-    <div className="rounded-bl-3xl rounded-tr-3xl overflow-x-hidden border pb-6">
+    <div className="rounded-bl-3xl rounded-tr-3xl overflow-x-hidden border border-gray-500 pb-6">
       <div className="bg-red-600 px-4 py-6">
         <h1>Search Results</h1>
       </div>

@@ -1,8 +1,8 @@
-import env from "@/lib/env";
 import { formatDate } from "@/lib/formatDate";
 import { Movie } from "@/lib/types";
 import { Star } from "lucide-react";
 import Link from "next/link";
+import Img from "../Img";
 
 const MoviesCard = ({ movie }: { movie: Movie }) => {
   console.log(movie.id);
@@ -17,12 +17,13 @@ const MoviesCard = ({ movie }: { movie: Movie }) => {
         >
           <div className="w-[220px] rounded-tr-full flex flex-col h-full justify-between  gap-5">
             <div className="flex flex-col gap-4 ">
-              <div
+            <Img alt={movie.title} h="320" path={`w440_and_h660_face/${movie.poster_path}`}/>
+              {/* <div
                 className="h-[320px] bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white"
                 style={{
                   backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w440_and_h660_face/${movie.poster_path})`,
                 }}
-              ></div>
+              ></div> */}
               {/* <Image
                 src={`${env.NEXT_PUBLIC_MEDIA_URL}/w440_and_h660_face/${movie.poster_path}`}
                 className="object-cover rounded-tr-xl"
