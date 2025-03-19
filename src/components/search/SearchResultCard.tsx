@@ -1,5 +1,4 @@
 import { formatDate } from "@/lib/formatDate";
-import Link from "next/link";
 import Img from "../Img";
 
 const SearchResultCard = ({

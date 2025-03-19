@@ -1,6 +1,5 @@
 "use client";
 import { ResultTypes } from "@/lib/types";
-import Link from "next/link";
 import { useState } from "react";
 import { useSearchContext } from "./SearchContextProvider";
 
