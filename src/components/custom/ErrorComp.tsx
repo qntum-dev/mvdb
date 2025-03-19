@@ -1,4 +1,4 @@
-const ErrorComp = ({ error }: { error: Error & { digest?: string } }) => {
+const ErrorComp = ({ error,text="Check that you typed the address correctly, go back to your previous page or search a different thing" }: { error: Error & { digest?: string },text?:string }) => {
   console.log(error);
 
   return (
@@ -13,8 +13,7 @@ const ErrorComp = ({ error }: { error: Error & { digest?: string } }) => {
         }}
       ></div>
           <p className="text-xl lg:w-[500px] text-center lg:text-start">
-            Check that you typed the address correctly, go back to your previous
-            page or search a different thing
+            {text}
           </p>
         </div>
       <div

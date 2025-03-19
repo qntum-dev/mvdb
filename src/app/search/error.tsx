@@ -11,7 +11,7 @@ export default function Error({
     
   return (
     <div className="h-full">
-      <ErrorComp error={error}/>
+      <ErrorComp error={error} text="No results found"/>
     </div>
   )
 }

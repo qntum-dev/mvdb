@@ -7,7 +7,6 @@ import kyServer from "@/lib/ky";
 import { Movies, Persons, Shows } from "@/lib/types";
 import { ChevronRight } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
 import { ReactNode, Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
 // Reusable section header component
 const SectionHeader = ({ title, redPart, linkTo = "trending" }:{ title:string, redPart:string, linkTo:string }) => (
   <div className="w-fit group">
-    <Link href={linkTo}>
+    <a href={linkTo}>
       <div className="flex items-center w-fit">
         <p className="text-3xl font-bold">
           {title}<span className="text-red-500">{redPart}</span>
@@ -29,7 +28,7 @@ const SectionHeader = ({ title, redPart, linkTo = "trending" }:{ title:string, r
           className="text-white duration-200 group-hover:text-red-500"
         />
       </div>
-    </Link>
+    </a>
   </div>
 );
 
@@ -75,7 +74,7 @@ async function PopularPeople() {
     <Slider
       gap="6"
       elements={popular_people.results.map((people) => (
-        <Link
+        <a
           href={`/person/${people.id}-${people.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
           key={people.id}
         >
@@ -94,7 +93,7 @@ async function PopularPeople() {
             ></div> */}
             <div className="group-hover:text-red-400 duration-200">{people.name}</div>
           </div>
-        </Link>
+        </a>
       ))}
     />
   );

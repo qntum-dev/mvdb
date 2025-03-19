@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
 const getYouTubeID = (url: string) => {
   const match = url.match(/(?:\?v=|\/embed\/|\/v\/|youtu\.be\/)([^&]+)/);
   return match ? match[1] : null;

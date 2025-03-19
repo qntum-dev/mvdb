@@ -47,10 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 //     )
 // }
 
-const PersonDetailsLoaded = async ({id}:{
-  id:string
-}) => {
-
+const PersonDetailsLoaded = async ({ id }: { id: string }) => {
   const person_details: PersonDetails = await fetchDetails("person", id);
 
   console.log(person_details);
@@ -76,11 +73,21 @@ const PersonDetailsLoaded = async ({id}:{
                 />
               </div> */}
               <div className="lg:hidden">
-
-              <Img  alt={person_details.name} h="500" w_perc={95} rounded="custom" path={`w600_and_h900_bestv2/${person_details.profile_path}` }/>
+                <Img
+                  alt={person_details.name}
+                  h="440"
+                  w="300"
+                  rounded="custom"
+                  path={`w600_and_h900_bestv2/${person_details.profile_path}`}
+                />
               </div>
               <div className="hidden lg:block">
-              <Img  alt={person_details.name} w_perc={90} rounded="custom" path={`w600_and_h900_bestv2/${person_details.profile_path}` }/>
+                <Img
+                  alt={person_details.name}
+                  w_perc={90}
+                  rounded="custom"
+                  path={`w600_and_h900_bestv2/${person_details.profile_path}`}
+                />
               </div>
             </div>
             {/* <div className="w-full border border-yellow-400"> */}
@@ -97,7 +104,7 @@ const PersonDetailsLoaded = async ({id}:{
 
         <div className="col-span-9 ">
           <div className="mb-8">
-            <p className="text-4xl">{person_details.name}</p>
+            <p className="text-4xl lg:text-start text-center">{person_details.name}</p>
           </div>
           <div className="flex flex-col gap-12">
             <div className="">
@@ -129,9 +136,7 @@ export default async function PersonDetailsPage({
   const { id } = await params;
   return (
     <Suspense fallback={<PersonDetailsSkeleton />}>
-      <PersonDetailsLoaded id={id}/>
+      <PersonDetailsLoaded id={id} />
     </Suspense>
   );
 }
-
-

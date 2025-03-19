@@ -29,7 +29,7 @@ const SearchResultsSelector = () => {
     display: string;
     mediaType: string;
   }) => (
-    <Link
+    <a
       href={`/search/${result_type.mediaType}?query=${query}`}
       key={result_type.endpoint}
     >
@@ -47,7 +47,7 @@ const SearchResultsSelector = () => {
       >
         <p>{result_type.display}</p>
       </div>
-    </Link>
+    </a>
   );
   return (
     <div className="rounded-bl-3xl rounded-tr-3xl overflow-x-hidden border border-gray-500 pb-6">

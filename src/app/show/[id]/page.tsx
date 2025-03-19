@@ -1,14 +1,13 @@
 import Slider from "@/components/custom/Slider";
 import Img from "@/components/Img";
 import ShowPageSkeleton from "@/components/Shows/ShowPageSkeleton";
-import VideoPlayer from "@/components/VideoPlayer";
+import VideoPlayer from "@/components/custom/VideoPlayer";
 import env from "@/lib/env";
 import { fetchDetails } from "@/lib/fetchDetails";
 import { formatDate } from "@/lib/formatDate";
 import { Credits, Images, ShowDetails, Shows, Videos } from "@/lib/types";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Suspense } from "react";
 
 type Props = {
@@ -58,7 +57,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
     "recommendations"
   );
 
-  // console.log(movie_images);
+  // console.log(show_images);
 
   const trailers = show_videos.results.filter((video) => {
     return video.type == "Trailer";
@@ -101,8 +100,8 @@ const ShowPageContent = async ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <div className="flex justify-center lg:justify-normal lg:gap-6">
-          <div className="md:hidden ">
+        <div className="flex justify-center lg:justify-normal lg:gap-6 ">
+          <div className="md:hidden">
             {trailers.length > 0 ? (
               <div className="">
                 <VideoPlayer
@@ -110,51 +109,79 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                 />
               </div>
             ) : (
-            <Img
-              alt={show_details.name}
-              h="440"
-              w="300"
-              // w_perc={100}
-              path={`w600_and_h900_bestv2${show_images.posters[0].file_path}`}
-            />
+              <Img
+                alt={show_details.name}
+                h="440"
+                w="300"
+                // w_perc={100}
+                path={`w600_and_h900_bestv2${show_images.posters[0].file_path}`}
+              />
             )}
           </div>
-          <div className="hidden lg:block h-full w-fit">
+          <div className="hidden lg:block">
             <Img
               alt={show_details.name}
-              // h="340"
-              // w_perc={0}
               w="250"
-              path={`w600_and_h900_bestv2${show_images.posters[0].file_path}`}
+              path={`w600_and_h900_bestv2${show_images?.posters[0]?.file_path}`}
             />
           </div>
-          {trailers.length < 1 && (
-            <div className="w-fit">
-              <div className="hidden md:block lg:hidden">
-                <Img
-                  path={`w1066_and_h600_bestv2/${show_images.backdrops[0].file_path}`}
-                  alt={show_details.name}
-                  w_perc={100}
-                />
-              </div>
-
-              <div className="hidden lg:block">
-                <Img
-                  path={`w1066_and_h600_bestv2/${show_images.backdrops[0].file_path}`}
-                  alt={show_details.name}
-                  h="340"
-                />
-                {/* <div
-                className="bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white lg:h-[365px]"
-                style={{
-                  backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w1066_and_h600_bestv2/${show_images.backdrops[0].file_path})`,
-                }}
-              ></div> */}
-              </div>
+          {/* <div
+            className="w-[260px] h-[365px] bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white"
+            style={{
+              backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${show_images.posters[0].file_path})`,
+            }}
+          ></div> */}
+          {/* <div className="rounded-xl overflow-hidden ">
+              <Image
+                alt={show_images.posters[3].file_path}
+                src={`${env.NEXT_PUBLIC_MEDIA_URL}/w300_and_h450_bestv2${show_images.posters[0].file_path}`}
+                width={300}
+                height={450}
+                objectFit={"cover"}
+                className="object-cover"
+              />
+            </div> */}
+          {/* {show_images.backdrops.length < 1 && (
+            <div className="lg:hidden">
+              <Img
+                alt={movie_details.title}
+                h="440"
+                w="300"
+                // w_perc={95}
+                rounded="custom"
+                path={`w600_and_h900_bestv2/${movie_details.poster_path}`}
+              />
             </div>
-          )}
+          )} */}
+          {trailers.length < 1 &&
+            (show_images.backdrops.length > 1 ? (
+              <div className="hidden md:block">
+                <Img
+                  path={`w1066_and_h600_bestv2/${show_images.backdrops[0].file_path}`}
+                  alt={show_details.name}
+                  // w_perc={100}
+                  h="360"
+                  w="650"
+                />
+              </div>
+            ) : (
+              <div className="">
+                <div className="hidden md:block lg:hidden">
+                  <Img
+                    alt={show_details.name}
+                    h="440"
+                    w="300"
+                    // w_perc={100}
+                    path={`w600_and_h900_bestv2${show_images.posters[0].file_path}`}
+                  />
+                </div>
+                <div className="hidden rounded-bl-3xl rounded-tr-3xl border border-white lg:h-[365px] lg:w-[650px] w-full  lg:flex items-center justify-center">
+                  <p className="text-4xl text-red-600">No media Available</p>
+                </div>
+              </div>
+            ))}
           {trailers[0]?.key && (
-            <div className="hidden md:block  lg:w-[650px] md:w-full">
+            <div className="hidden md:block md:w-full lg:w-[650px]">
               <VideoPlayer
                 url={`https://www.youtube.com/watch?v=${trailers[0].key}`}
               />
@@ -194,7 +221,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
               <div className="hidden lg:grid grid-cols-2 gap-6">
                 {credits.cast.map((cast) => {
                   return (
-                    <Link
+                    <a
                       key={cast.id}
                       href={`/person/${cast.id}-${cast.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
                     >
@@ -232,7 +259,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                           </p>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   );
                 })}
               </div>
@@ -245,7 +272,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                     gap="10"
                     elements={credits.cast.map((cast) => {
                       return (
-                        <Link
+                        <a
                           key={cast.id}
                           href={`/person/${cast.id}-${cast.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
                         >
@@ -270,14 +297,14 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                             {/* <div className="flex flex-col gap-1 w-full justify-center border border-red-400 items-center">
                         </div> */}
                           </div>
-                        </Link>
+                        </a>
                       );
                     })}
                   />
                 ) : (
                   <div className="flex gap-12">
                     {credits.cast.map((cast) => (
-                      <Link
+                      <a
                         key={cast.id}
                         href={`/person/${cast.id}-${cast.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
                       >
@@ -300,7 +327,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                           {/* <div className="flex flex-col gap-1 w-full justify-center border border-red-400 items-center">
                         </div> */}
                         </div>
-                      </Link>
+                      </a>
                     ))}
                   </div>
                 )}
@@ -315,7 +342,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                 .slice(0, credits.cast.length / 2)
                 .map((recommendation) => {
                   return (
-                    <Link
+                    <a
                       key={recommendation.id}
                       href={`${recommendation.id}-${recommendation.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
                     >
@@ -354,7 +381,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   );
                 })}
             </div>
@@ -367,7 +394,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
           gap="10"
           elements={recommendations.results.map((recommendation) => {
             return (
-              <Link
+              <a
                 key={recommendation.id}
                 href={`${recommendation.id}-${recommendation.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
               >
@@ -404,7 +431,7 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </a>
             );
           })}
         />

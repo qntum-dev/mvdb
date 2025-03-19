@@ -2,7 +2,6 @@ import { formatDate } from "@/lib/formatDate";
 import Link from "next/link";
 import Img from "../Img";
 
-
 const SearchResultCard = ({
   name,
   image_url,
@@ -19,9 +18,11 @@ const SearchResultCard = ({
   id: number;
 }) => {
   // console.log(overview);
-console.log(slug);
+  console.log(slug);
+  console.log(image_url);
+  
 
-  const slugType = slug == "people" ? "person" : slug=="tv" ? "show":slug;
+  const slugType = slug == "people" ? "person" : slug == "tv" ? "show" : slug;
   return (
     <div className="flex gap-4 flex-col lg:flex-row items-center">
       <div className="lg:hidden w-full flex justify-center">
@@ -37,7 +38,11 @@ console.log(slug);
                   className="object-cover object-center"
                 />
               </div> */}
-        <Img path={`${image_url}`} alt={name} w_perc={90}/>
+        {!image_url.includes("null") ? (
+          <Img path={`${image_url}`} alt={name} w_perc={90} />
+        ) : (
+          <Img path={`https://avatar.iran.liara.run/username?username=${name.split(" ")[0]}`} alt={name} w_perc={90} />
+        )}
       </div>
 
       <div className="hidden lg:block">
@@ -61,14 +66,15 @@ console.log(slug);
           </p>
         )}
 
-        <Link
+        <a
           className="lg:text-xl hover:text-red-400 text-center lg:text-start"
           href={`/${slugType}/${id}-${name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
         >
           {name}
-          
-        </Link>
-        <p className="hidden lg:block mt-4 text-center lg:text-left line-clamp-4">{overview}</p>
+        </a>
+        <p className="hidden lg:block mt-4 text-center lg:text-left line-clamp-4">
+          {overview}
+        </p>
       </div>
     </div>
   );

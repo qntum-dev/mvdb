@@ -10,7 +10,7 @@ const MoviesCard = ({ movie }: { movie: Movie }) => {
   return (
     <>
       <div className="h-full w-full ">
-        <Link
+        <a
           className=""
           key={movie.id}
           href={`movie/${movie.id}-${movie.title.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
@@ -49,7 +49,7 @@ const MoviesCard = ({ movie }: { movie: Movie }) => {
               </div>
             </div>
           </div>
-        </Link>
+        </a>
       </div>
     </>
   );

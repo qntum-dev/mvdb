@@ -38,6 +38,7 @@ const Search = async ({
 
   const allResults: SearchResultsType<Movie | Show | Person> =
     await fetchSearchResults(query, "multi");
+console.log(allResults.results);
 
   const firstSearchType = allResults.results[0].media_type;
   console.log(firstSearchType);
