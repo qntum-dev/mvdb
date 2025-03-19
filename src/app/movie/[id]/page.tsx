@@ -159,7 +159,7 @@ const MoviePageContent = async ({ id }: { id: string }) => {
               </div>
             ))}
           {trailers[0]?.key && (
-            <div className="lg:w-[650px]">
+            <div className="md:w-full lg:w-[650px]">
               <VideoPlayer
                 url={`https://www.youtube.com/watch?v=${trailers[0].key}`}
               />

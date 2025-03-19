@@ -79,8 +79,10 @@ const ShowPageContent = async ({ id }: { id: string }) => {
       {/* {movie_details.overview} */}
       <div className="flex flex-col gap-4">
         <div className="">
-          <p className=" text-4xl">{show_details.name}</p>
-          <div className="flex gap-2 text-gray-400 tracking-wide text-sm font-semibold items-center">
+          <p className=" text-4xl text-center lg:text-start">
+            {show_details.name}
+          </p>
+          <div className="flex gap-2 text-gray-400 tracking-wide text-sm font-semibold items-center justify-center lg:justify-normal">
             {/* <p className="">
                 {movie_details}
               </p> */}
@@ -99,43 +101,60 @@ const ShowPageContent = async ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <div className="lg:flex gap-6 ">
-          <div className="hidden lg:block">
+        <div className="flex justify-center lg:justify-normal lg:gap-6">
+          <div className="md:hidden ">
+            {trailers.length > 0 ? (
+              <div className="">
+                <VideoPlayer
+                  url={`https://www.youtube.com/watch?v=${trailers[0].key}`}
+                />
+              </div>
+            ) : (
             <Img
               alt={show_details.name}
-              h="365"
-              w="260"
+              h="440"
+              w="300"
+              // w_perc={100}
+              path={`w600_and_h900_bestv2${show_images.posters[0].file_path}`}
+            />
+            )}
+          </div>
+          <div className="hidden lg:block h-full w-fit">
+            <Img
+              alt={show_details.name}
+              // h="340"
+              // w_perc={0}
+              w="250"
               path={`w600_and_h900_bestv2${show_images.posters[0].file_path}`}
             />
           </div>
-          {/* <div
-            className="w-[260px] h-[365px] bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white"
-            style={{
-              backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images.posters[0].file_path})`,
-            }}
-          ></div> */}
-          {/* <div className="rounded-xl overflow-hidden ">
-              <Image
-                alt={movie_images.posters[3].file_path}
-                src={`${env.NEXT_PUBLIC_MEDIA_URL}/w300_and_h450_bestv2${movie_images.posters[0].file_path}`}
-                width={300}
-                height={450}
-                objectFit={"cover"}
-                className="object-cover"
-              />
-            </div> */}
           {trailers.length < 1 && (
-            <div className="lg:w-[650px]">
-              <div
+            <div className="w-fit">
+              <div className="hidden md:block lg:hidden">
+                <Img
+                  path={`w1066_and_h600_bestv2/${show_images.backdrops[0].file_path}`}
+                  alt={show_details.name}
+                  w_perc={100}
+                />
+              </div>
+
+              <div className="hidden lg:block">
+                <Img
+                  path={`w1066_and_h600_bestv2/${show_images.backdrops[0].file_path}`}
+                  alt={show_details.name}
+                  h="340"
+                />
+                {/* <div
                 className="bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white lg:h-[365px]"
                 style={{
                   backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w1066_and_h600_bestv2/${show_images.backdrops[0].file_path})`,
                 }}
-              ></div>
+              ></div> */}
+              </div>
             </div>
           )}
           {trailers[0]?.key && (
-            <div className="lg:w-[650px]">
+            <div className="hidden md:block  lg:w-[650px] md:w-full">
               <VideoPlayer
                 url={`https://www.youtube.com/watch?v=${trailers[0].key}`}
               />
@@ -146,22 +165,21 @@ const ShowPageContent = async ({ id }: { id: string }) => {
           <h3 className="">More Like this</h3>
         </div> */}
         </div>
+        <div className="flex gap-3 justify-center lg:justify-normal items-center ">
+          {show_details.genres.map((genre) => {
+            return (
+              <div
+                className="border border-red-500 py-1 tracking-wide px-3 rounded-full"
+                key={genre.id}
+              >
+                <p className="text-sm">{genre.name}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="flex gap-3 ">
-        {show_details.genres.map((genre) => {
-          return (
-            <div
-              className="border border-red-500 py-1 tracking-wide px-3 rounded-full"
-              key={genre.id}
-            >
-              <p className="text-sm">{genre.name}</p>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="lg:w-2/3 ">
+      <div className="lg:w-2/3 text-center lg:text-start ">
         <p className="">{show_details.overview}</p>
       </div>
 
@@ -206,7 +224,9 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                           }}
                         ></div> */}
                         <div className="flex flex-col gap-1">
-                          <p className="text-xl lg:text-base group-hover:text-red-400">{cast.name}</p>
+                          <p className="text-xl lg:text-base group-hover:text-red-400">
+                            {cast.name}
+                          </p>
                           <p className="text-base text-gray-400 tracking-wide w-40 line-clamp-2">
                             {cast.character}
                           </p>
@@ -309,7 +329,9 @@ const ShowPageContent = async ({ id }: { id: string }) => {
                           />
                         </div>
                         <div className="flex flex-col gap-2 w-full">
-                          <p className="group-hover:text-red-400">{recommendation.original_name}</p>
+                          <p className="group-hover:text-red-400">
+                            {recommendation.original_name}
+                          </p>
                           {recommendation.first_air_date != "" && (
                             <p className="text-gray-400">
                               {formatDate(recommendation.first_air_date)}

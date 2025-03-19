@@ -110,7 +110,7 @@ const SearchResults = () => {
               release_date={release_date}
               overview={overview}
               id={result.id}
-              slug={`${result.media_type}`}
+              slug={slug}
             />
           ) : (
             <SearchResultCardCast

@@ -6,11 +6,13 @@ import { useSearchContext } from "./SearchContextProvider";
 
 const SearchResultsSelector = () => {
   const { searchResults, slug,query } = useSearchContext();
+  console.log(slug);
+  
   const [selectedResultType, setSelectedResultType] = useState(slug);
   if (!searchResults) {
     return;
   }
-  const firstSearchType = searchResults.results[0]?.media_type;
+  // const firstSearchType = searchResults.results[0]?.media_type;
   // console.log(selected);
   // console.log(firstSearchType);
 
@@ -54,15 +56,15 @@ const SearchResultsSelector = () => {
       </div>
       <div className="mt-2 flex flex-col">
         {/* hover:bg-[#de3b3b] */}
-        {firstSearchType &&
+        {slug &&
           renderResultType(
             result_types.find(
-              (result_type) => result_type.mediaType === firstSearchType
+              (result_type) => result_type.mediaType === slug
             )!
           )}
 
         {result_types
-          .filter((result_type) => result_type.mediaType !== firstSearchType)
+          .filter((result_type) => result_type.mediaType !== slug)
           .map(renderResultType)}
       </div>
     </div>

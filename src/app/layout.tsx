@@ -40,7 +40,7 @@ export default function RootLayout({
               <div className="mt-2">
                 <SearchForm />
               </div>
-              <main className="mx-2 pt-6 lg:mx-[170px] md:mx-4 mb-8">
+              <main className="mx-2 pt-6 lg:mx-[150px] md:mx-4 mb-8">
                 {children}
               </main>
             </Suspense>

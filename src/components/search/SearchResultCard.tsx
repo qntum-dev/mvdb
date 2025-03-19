@@ -18,8 +18,10 @@ const SearchResultCard = ({
   slug: string;
   id: number;
 }) => {
-  console.log(overview);
-  const slugType = slug == "movie" ? "movie" : "show";
+  // console.log(overview);
+console.log(slug);
+
+  const slugType = slug == "people" ? "person" : slug=="tv" ? "show":slug;
   return (
     <div className="flex gap-4 flex-col lg:flex-row items-center">
       <div className="lg:hidden w-full flex justify-center">

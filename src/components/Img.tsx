@@ -42,7 +42,7 @@ const Img = ({
         src={path.includes("https") ? path :`${env.NEXT_PUBLIC_MEDIA_URL}/${path}`}
         {...(w && h
           ? { width: parseInt(w), height: parseInt(h) } // Explicit width & height
-          : { layout: "intrinsic", width: 600, height: 900 })} // Defaults if no width/height
+          : { layout: "intrinsic", width: 250, height: 800 })} // Defaults if no width/height
         className="object-cover object-center"
       />
     </div>

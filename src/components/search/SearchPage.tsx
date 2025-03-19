@@ -14,16 +14,12 @@ const SearchPage = ({ searchData }: { searchData: SearchContextProps }) => {
   const {slug } = searchData;
   // console.log(searchData.query);
 
-  // console.log(slug);
+  console.log(slug);
   return (
     <SearchContextProvider value={searchData}>
       <div className="flex flex-col gap-10 lg:gap-0 lg:grid grid-cols-12 mx-auto">
         <div className="lg:col-span-3">
-          {slug ? (
-            <SearchResultsSelector/>
-          ) : (
-            <SearchResultsSelector />
-          )}
+          <SearchResultsSelector/>
         </div>
         <div className="lg:col-span-9">
           <SearchResults/>
