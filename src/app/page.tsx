@@ -6,13 +6,9 @@ import ShowsCard from "@/components/Shows/ShowsCard";
 import kyServer from "@/lib/ky";
 import { Movies, Persons, Shows } from "@/lib/types";
 import { ChevronRight } from "lucide-react";
-import { Metadata } from "next";
 import { ReactNode, Suspense } from "react";
 
-export const metadata: Metadata = {
-  title: "MVDB: Explore Trending, Popular TV shows and Movies",
-  description: "Your go-to site for finding movies, TV shows, and celebrity details.",
-};
+
 
 // Reusable section header component
 const SectionHeader = ({ title, redPart, linkTo = "trending" }:{ title:string, redPart:string, linkTo:string }) => (
