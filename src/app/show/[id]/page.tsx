@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `${show.overview}`,
     openGraph: {
       url: `${env.NEXT_PUBLIC_URL}/show/${show.id}-${show.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
-      title:`${show.name}`,
+      title:`${show.name} - MVDB`,
       type:`video.tv_show`,
       description:`${show.overview}`,
       images: [
