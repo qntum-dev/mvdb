@@ -11,7 +11,7 @@ import { ReactNode, Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "MVDB: Explore Trending, Popular TV shows and Movies",
-  description: "Explore trending, popular TV shows, movies and much more ",
+  description: "Your go-to site for finding movies, TV shows, and celebrity details.",
 };
 
 // Reusable section header component

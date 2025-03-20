@@ -71,7 +71,7 @@ const SearchResultCard = ({
         >
           {name}
         </a>
-        <p className="hidden lg:block mt-4 text-center lg:text-left line-clamp-4">
+        <p className="hidden lg:block mt-4 text-center lg:text-left lg:line-clamp-2">
           {overview}
         </p>
       </div>

@@ -20,6 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
 
   console.log(id.split("-")[0]);
+  const movie_images: Images = await fetchDetails("movie", id, "images");
+
+  console.log(`/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images?.posters[0]?.file_path}`)}`);
 
   // fetch data
   const movie: MovieDetails = await fetch(
@@ -37,6 +40,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${movie.title} (${formatDate(movie.release_date).split(" ")[2]}) - MVDB`,
+    description: `${movie.overview}`,
+    openGraph: {
+      url: `${env.NEXT_PUBLIC_URL}/movie/${movie.id}-${movie.title.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
+      title:`${movie.title}`,
+      type:`video.movie`,
+      description:`${movie.overview}`,
+      images: [
+        `${env.NEXT_PUBLIC_URL}/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images?.posters[0]?.file_path}`)}&w=640&q=75`,
+      ],
+    },
   };
 }
 

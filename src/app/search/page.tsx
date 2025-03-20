@@ -16,7 +16,15 @@ export async function generateMetadata({
   const { query } = await searchParams;
 
   return {
-    title: `${query} - MVDB`,
+    title: `Search Results for ${query}`,
+    description:"Your go-to site for finding movies, TV shows, and celebrity details.",
+     openGraph: {
+      title:`Search Results for ${query}`,
+      description:`Your go-to site for finding movies, TV shows, and celebrity details.`,
+      // images: [
+      //   `${env.NEXT_PUBLIC_URL}/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images?.posters[0]?.file_path}`)}&w=640&q=75`,
+      // ],
+    },
   };
 }
 

@@ -18,7 +18,9 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const { id } = await params;
+  const show_images: Images = await fetchDetails("tv", id, "images");
 
+  console.log(`/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${show_images?.posters[0]?.file_path}`)}`);
   console.log(id.split("-")[0]);
 
   // fetch data
@@ -34,6 +36,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${show.name} (${formatDate(show.first_air_date).split(" ")[2]}) - MVDB`,
+    description: `${show.overview}`,
+    openGraph: {
+      url: `${env.NEXT_PUBLIC_URL}/show/${show.id}-${show.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
+      title:`${show.name}`,
+      type:`video.tv_show`,
+      description:`${show.overview}`,
+      images: [
+        `${env.NEXT_PUBLIC_URL}/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${show_images?.posters[0]?.file_path}`)}&w=640&q=75`,
+      ],
+    },
   };
 }
 

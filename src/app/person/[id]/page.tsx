@@ -35,6 +35,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${person.name} - MVDB`,
+    description: `${person.biography}`,
+    openGraph: {
+      url: `${env.NEXT_PUBLIC_URL}/person/${person.id}-${person.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
+      title:`${person.name}`,
+      type:`profile`,
+      description:`${person.biography}`,
+      images: [
+        `${env.NEXT_PUBLIC_URL}/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${person.profile_path}`)}&w=640&q=75`,
+      ],
+    },
   };
 }
 
