@@ -1,7 +1,6 @@
 import { formatDate } from "@/lib/formatDate";
 import { Show } from "@/lib/types";
 import { Star } from "lucide-react";
-import Link from "next/link";
 import Img from "../Img";
 
 const ShowsCard = ({ show }: { show: Show }) => {
@@ -10,7 +9,7 @@ const ShowsCard = ({ show }: { show: Show }) => {
   return (
     <>
       <div className="h-full  ">
-        <Link
+        <a
           className=""
           key={show.id}
           href={`show/${show.id}-${show.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
@@ -49,7 +48,7 @@ const ShowsCard = ({ show }: { show: Show }) => {
               </div>
             </div>
           </div>
-        </Link>
+        </a>
       </div>
     </>
   );
