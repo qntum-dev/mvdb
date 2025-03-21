@@ -1,5 +1,5 @@
 "use client";
-import { Forward, Share2Icon, ShareIcon } from "lucide-react";
+import {ShareIcon } from "lucide-react";
 import { toast } from "sonner";
 
 const ShareComp = ({ shareData }: { shareData: ShareData }) => {
