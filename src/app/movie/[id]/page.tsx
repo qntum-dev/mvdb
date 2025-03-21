@@ -106,8 +106,6 @@ const MoviePageContent = async ({ id }: { id: string }) => {
             </p>
             <ShareComp
               shareData={{
-                title: `${movie_details.title} - MVDB`,
-                text: `${movie_details.overview}`,
                 url: `${env.NEXT_PUBLIC_URL}/show/${movie_details.id}-${movie_details.title.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
               }}
             />
