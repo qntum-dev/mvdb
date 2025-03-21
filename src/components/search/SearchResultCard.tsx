@@ -1,5 +1,5 @@
 import { formatDate } from "@/lib/formatDate";
-import Img from "../Img";
+import Img from "../custom/Img";
 
 const SearchResultCard = ({
   name,

@@ -1,7 +1,7 @@
 import { formatDate } from "@/lib/formatDate";
 import { Movie } from "@/lib/types";
 import { Star } from "lucide-react";
-import Img from "../Img";
+import Img from "../custom/Img";
 
 const MoviesCard = ({ movie }: { movie: Movie }) => {
   // console.log(movie.id);

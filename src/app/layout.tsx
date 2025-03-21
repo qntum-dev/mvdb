@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes";
 import SearchForm from "@/components/search/SearchForm";
 import { Suspense } from "react";
 import env from "@/lib/env";
+import { Toaster } from "sonner";
 // import { SearchContextProvider } from "@/components/search/SearchContextProvider";
 
 const geistSans = Geist({
@@ -59,6 +60,8 @@ export default function RootLayout({
             <main className="mx-2 pt-6 lg:mx-[150px] md:mx-4 mb-8">
               {children}
             </main>
+            <Toaster />
+
           </Suspense>
         </ThemeProvider>
       </body>

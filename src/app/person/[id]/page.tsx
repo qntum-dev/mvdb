@@ -1,5 +1,5 @@
 import ReadMore from "@/components/custom/ReadMore";
-import Img from "@/components/Img";
+import Img from "@/components/custom/Img";
 import PersonDetailsSkeleton from "@/components/Person/PersonDetailsSkeleton";
 // import Slider from "@/components/custom/Slider";
 import env from "@/lib/env";

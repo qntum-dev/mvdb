@@ -1,5 +1,5 @@
 import { KnownFor } from "@/lib/types";
-import Img from "../Img";
+import Img from "../custom/Img";
 
 import Link from "next/link";
 

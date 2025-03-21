@@ -1,5 +1,5 @@
 import Slider from "@/components/custom/Slider";
-import Img from "@/components/Img";
+import Img from "@/components/custom/Img";
 import MovieCardSkeleton from "@/components/Movies/MovieCardSkeleton";
 import MoviesCard from "@/components/Movies/MoviesCard";
 import ShowsCard from "@/components/Shows/ShowsCard";
@@ -7,6 +7,15 @@ import kyServer from "@/lib/ky";
 import { Movies, Persons, Shows } from "@/lib/types";
 import { ChevronRight } from "lucide-react";
 import { ReactNode, Suspense } from "react";
+
+
+// !TODO remove header arrow links 
+// !TODO add genre search
+// !TODO change search result selector layout for mobile
+// !TODO replace <Link/> from pagination with a-tag
+// !TODO add "Known For" section in person details page
+// !TODO add shared button for each details page
+
 
 
 

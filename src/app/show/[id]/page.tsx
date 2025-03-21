@@ -1,5 +1,5 @@
 import Slider from "@/components/custom/Slider";
-import Img from "@/components/Img";
+import Img from "@/components/custom/Img";
 import ShowPageSkeleton from "@/components/Shows/ShowPageSkeleton";
 import VideoPlayer from "@/components/custom/VideoPlayer";
 import env from "@/lib/env";
@@ -9,6 +9,7 @@ import { Credits, Images, ShowDetails, Shows, Videos } from "@/lib/types";
 import { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
+import ShareComp from "@/components/custom/ShareComp";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -90,9 +91,13 @@ const ShowPageContent = async ({ id }: { id: string }) => {
       {/* {movie_details.overview} */}
       <div className="flex flex-col gap-4">
         <div className="">
+          <div className="flex gap-6">
           <p className=" text-4xl text-center lg:text-start">
             {show_details.name}
           </p>
+          <ShareComp shareData={{title:`${show_details.name} - MVDB`,text:`${show_details.overview}`,url:`${env.NEXT_PUBLIC_URL}/show/${show_details.id}-${show_details.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}}/>
+
+          </div>
           <div className="flex gap-2 text-gray-400 tracking-wide text-sm font-semibold items-center justify-center lg:justify-normal">
             {/* <p className="">
                 {movie_details}

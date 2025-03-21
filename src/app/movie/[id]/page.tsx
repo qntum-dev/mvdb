@@ -1,5 +1,5 @@
 import Slider from "@/components/custom/Slider";
-import Img from "@/components/Img";
+import Img from "@/components/custom/Img";
 import MoviePageSkeleton from "@/components/Movies/MoviePageSkeleton";
 import VideoPlayer from "@/components/custom/VideoPlayer";
 import env from "@/lib/env";
