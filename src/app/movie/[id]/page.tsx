@@ -9,6 +9,7 @@ import { Credits, Images, MovieDetails, Movies, Videos } from "@/lib/types";
 import { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
+import ShareComp from "@/components/custom/ShareComp";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -22,7 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   console.log(id.split("-")[0]);
   const movie_images: Images = await fetchDetails("movie", id, "images");
 
-  console.log(`/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images?.posters[0]?.file_path}`)}`);
+  console.log(
+    `/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images?.posters[0]?.file_path}`)}`
+  );
 
   // fetch data
   const movie: MovieDetails = await fetch(
@@ -43,9 +46,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `${movie.overview}`,
     openGraph: {
       url: `${env.NEXT_PUBLIC_URL}/movie/${movie.id}-${movie.title.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
-      title:`${movie.title} - MVDB`,
-      type:`video.movie`,
-      description:`${movie.overview}`,
+      title: `${movie.title} - MVDB`,
+      type: `video.movie`,
+      description: `${movie.overview}`,
       images: [
         `${env.NEXT_PUBLIC_URL}/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images?.posters[0]?.file_path}`)}&w=640&q=75`,
       ],
@@ -96,14 +99,24 @@ const MoviePageContent = async ({ id }: { id: string }) => {
       {/* {movie_id} */}
       {/* {movie_details.overview} */}
       <div className="flex flex-col gap-4">
-        <div className="">
-          <p className=" text-4xl lg:text-start text-center">
-            {movie_details.title}
-          </p>
-          <div className="flex gap-2 text-gray-400 tracking-wide text-sm font-semibold items-center justify-center lg:justify-normal">
+        <div className="flex flex-col justify-center items-start gap-2">
+          <div className="flex gap-5">
+            <p className=" text-2xl lg:text-4xl lg:text-start ">
+              {movie_details.title}
+            </p>
+            <ShareComp
+              shareData={{
+                title: `${movie_details.title} - MVDB`,
+                text: `${movie_details.overview}`,
+                url: `${env.NEXT_PUBLIC_URL}/show/${movie_details.id}-${movie_details.title.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
+              }}
+            />
+          </div>
+
+          <div className="flex gap-2 text-gray-400 tracking-wide text-sm font-semibold items-center justify-start">
             {/* <p className="">
-                {movie_details}
-              </p> */}
+                      {movie_details}
+                    </p> */}
             {movie_details.release_date != null && (
               <div className="">
                 <p className="text-sm">
@@ -119,6 +132,15 @@ const MoviePageContent = async ({ id }: { id: string }) => {
             <p className="text-sm">{timeToDuration(movie_details.runtime)}</p>
           </div>
         </div>
+        {/* <div className="flex justify-between items-start ">
+                <ShareComp
+                  shareData={{
+                    title: `${movie_details.name} - MVDB`,
+                    text: `${movie_details.overview}`,
+                    url: `${env.NEXT_PUBLIC_URL}/show/${movie_details.id}-${movie_details.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
+                  }}
+                />
+              </div> */}
 
         <div className="flex justify-center lg:justify-normal lg:gap-6 ">
           <div className="md:hidden">
@@ -146,33 +168,33 @@ const MoviePageContent = async ({ id }: { id: string }) => {
             />
           </div>
           {/* <div
-            className="w-[260px] h-[365px] bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white"
-            style={{
-              backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images.posters[0].file_path})`,
-            }}
-          ></div> */}
+                  className="w-[260px] h-[365px] bg-cover bg-center rounded-bl-3xl rounded-tr-3xl border border-white"
+                  style={{
+                    backgroundImage: `url(${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${movie_images.posters[0].file_path})`,
+                  }}
+                ></div> */}
           {/* <div className="rounded-xl overflow-hidden ">
-              <Image
-                alt={movie_images.posters[3].file_path}
-                src={`${env.NEXT_PUBLIC_MEDIA_URL}/w300_and_h450_bestv2${movie_images.posters[0].file_path}`}
-                width={300}
-                height={450}
-                objectFit={"cover"}
-                className="object-cover"
-              />
-            </div> */}
+                    <Image
+                      alt={movie_images.posters[3].file_path}
+                      src={`${env.NEXT_PUBLIC_MEDIA_URL}/w300_and_h450_bestv2${movie_images.posters[0].file_path}`}
+                      width={300}
+                      height={450}
+                      objectFit={"cover"}
+                      className="object-cover"
+                    />
+                  </div> */}
           {/* {movie_images.backdrops.length < 1 && (
-            <div className="lg:hidden">
-              <Img
-                alt={movie_details.title}
-                h="440"
-                w="300"
-                // w_perc={95}
-                rounded="custom"
-                path={`w600_and_h900_bestv2/${movie_details.poster_path}`}
-              />
-            </div>
-          )} */}
+                  <div className="lg:hidden">
+                    <Img
+                      alt={movie_details.title}
+                      h="440"
+                      w="300"
+                      // w_perc={95}
+                      rounded="custom"
+                      path={`w600_and_h900_bestv2/${movie_details.poster_path}`}
+                    />
+                  </div>
+                )} */}
           {trailers.length < 1 &&
             (movie_images.backdrops.length > 1 ? (
               <div className="hidden md:block">
@@ -209,26 +231,24 @@ const MoviePageContent = async ({ id }: { id: string }) => {
           )}
 
           {/* <div className="">
-          <h3 className="">More Like this</h3>
-        </div> */}
+                <h3 className="">More Like this</h3>
+              </div> */}
         </div>
-      </div>
-
-      <div className="flex gap-3 justify-center lg:justify-normal items-center">
-        {movie_details.genres.map((genre) => {
-          return (
-            <div
-              className="border border-red-500 py-1 tracking-wide px-3 rounded-full"
-              key={genre.id}
-            >
-              <p className="text-sm">{genre.name}</p>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="lg:w-2/3 ">
-        <p className="">{movie_details.overview}</p>
+        <div className="flex overflow-x-auto gap-4 no-scrollbar">
+          {movie_details.genres.map((genre) => {
+            return (
+              <div
+                className="flex items-center justify-center border border-red-500 py-2 tracking-wide rounded-bl-xl rounded-tr-xl px-4"
+                key={genre.id}
+              >
+                <p className="text-sm text-nowrap">{genre.name}</p>
+              </div>
+            );
+          })}
+        </div>
+        <div className="lg:w-2/3 text-center lg:text-start ">
+          <p className="">{movie_details.overview}</p>
+        </div>
       </div>
 
       <div className="w-full">

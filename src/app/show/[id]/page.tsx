@@ -21,7 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const show_images: Images = await fetchDetails("tv", id, "images");
 
-  console.log(`/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${show_images?.posters[0]?.file_path}`)}`);
+  console.log(
+    `/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${show_images?.posters[0]?.file_path}`)}`
+  );
   console.log(id.split("-")[0]);
 
   // fetch data
@@ -40,9 +42,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `${show.overview}`,
     openGraph: {
       url: `${env.NEXT_PUBLIC_URL}/show/${show.id}-${show.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
-      title:`${show.name} - MVDB`,
-      type:`video.tv_show`,
-      description:`${show.overview}`,
+      title: `${show.name} - MVDB`,
+      type: `video.tv_show`,
+      description: `${show.overview}`,
       images: [
         `${env.NEXT_PUBLIC_URL}/_next/image?url=${encodeURIComponent(`${env.NEXT_PUBLIC_MEDIA_URL}/w600_and_h900_bestv2${show_images?.posters[0]?.file_path}`)}&w=640&q=75`,
       ],
@@ -90,32 +92,48 @@ const ShowPageContent = async ({ id }: { id: string }) => {
       {/* {movie_id} */}
       {/* {movie_details.overview} */}
       <div className="flex flex-col gap-4">
-        <div className="">
-          <div className="flex gap-6">
-          <p className=" text-4xl text-center lg:text-start">
-            {show_details.name}
-          </p>
-          <ShareComp shareData={{title:`${show_details.name} - MVDB`,text:`${show_details.overview}`,url:`${env.NEXT_PUBLIC_URL}/show/${show_details.id}-${show_details.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}}/>
+          <div className="flex flex-col justify-center items-start gap-2">
+            <div className="flex gap-5">
 
-          </div>
-          <div className="flex gap-2 text-gray-400 tracking-wide text-sm font-semibold items-center justify-center lg:justify-normal">
-            {/* <p className="">
+            <p className=" text-2xl lg:text-4xl lg:text-start ">
+              {show_details.name}
+            </p>
+            <ShareComp
+            shareData={{
+              title: `${show_details.name} - MVDB`,
+              text: `${show_details.overview}`,
+              url: `${env.NEXT_PUBLIC_URL}/show/${show_details.id}-${show_details.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
+            }}
+          />
+            </div>
+
+            <div className="flex gap-2 text-gray-400 tracking-wide text-sm font-semibold items-center justify-start">
+              {/* <p className="">
                 {movie_details}
               </p> */}
-            {show_details.first_air_date != null && (
-              <div className="">
-                <p className="text-sm">
-                  {show_details.first_air_date.split("-")[2]}/
-                  {show_details.first_air_date.split("-")[1]}/
-                  {show_details.first_air_date.split("-")[0]}
-                </p>
-              </div>
-            )}
+              {show_details.first_air_date != null && (
+                <div className="">
+                  <p className="text-sm">
+                    {show_details.first_air_date.split("-")[2]}/
+                    {show_details.first_air_date.split("-")[1]}/
+                    {show_details.first_air_date.split("-")[0]}
+                  </p>
+                </div>
+              )}
 
-            {/* <p className="">.</p> */}
-            <div className="rounded-full w-1.5 h-1.5 bg-gray-400"></div>
+              {/* <p className="">.</p> */}
+              <div className="rounded-full w-1.5 h-1.5 bg-gray-400"></div>
+            </div>
           </div>
-        </div>
+        {/* <div className="flex justify-between items-start ">
+          <ShareComp
+            shareData={{
+              title: `${show_details.name} - MVDB`,
+              text: `${show_details.overview}`,
+              url: `${env.NEXT_PUBLIC_URL}/show/${show_details.id}-${show_details.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
+            }}
+          />
+        </div> */}
 
         <div className="flex justify-center lg:justify-normal lg:gap-6 ">
           <div className="md:hidden">
@@ -209,23 +227,23 @@ const ShowPageContent = async ({ id }: { id: string }) => {
           <h3 className="">More Like this</h3>
         </div> */}
         </div>
-        <div className="flex gap-3 justify-center lg:justify-normal items-center ">
+        <div className="flex overflow-x-auto gap-4 no-scrollbar">
           {show_details.genres.map((genre) => {
             return (
               <div
-                className="border border-red-500 py-1 tracking-wide px-3 rounded-full"
+                className="flex items-center justify-center border border-red-500 py-2 tracking-wide rounded-bl-xl rounded-tr-xl px-4"
                 key={genre.id}
               >
-                <p className="text-sm">{genre.name}</p>
+                <p className="text-sm text-nowrap">{genre.name}</p>
               </div>
             );
           })}
         </div>
-      </div>
-
       <div className="lg:w-2/3 text-center lg:text-start ">
         <p className="">{show_details.overview}</p>
       </div>
+      </div>
+
 
       <div className="w-full">
         <div className="lg:grid lg:grid-cols-12">

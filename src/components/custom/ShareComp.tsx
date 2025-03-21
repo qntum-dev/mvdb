@@ -1,11 +1,11 @@
 "use client";
-import { ShareIcon } from "lucide-react";
+import { Forward, Share2Icon, ShareIcon } from "lucide-react";
 import { toast } from "sonner";
 
 const ShareComp = ({ shareData }: { shareData: ShareData }) => {
   return (
     <div
-      className="cursor-pointer w-[60px] h-[60px]"
+      className="flex cursor-pointer items-center  lg:border border-yellow-400"
       onClick={async () => {
         if (!navigator.canShare) {
           toast("Web Share API not available");
@@ -14,7 +14,10 @@ const ShareComp = ({ shareData }: { shareData: ShareData }) => {
         await navigator.share(shareData);
       }}
     >
-      <ShareIcon />
+      <ShareIcon size={27} className=""/>
+        {/* <div className="bg-red-500 px-1 py-1 rounded-br-xl rounded-tl-xl">
+
+        </div> */}
     </div>
   );
 };
