@@ -100,6 +100,8 @@ const ShowPageContent = async ({ id }: { id: string }) => {
             </p>
             <ShareComp
             shareData={{
+              title: `${show_details.name} - MVDB`,
+              text: `${show_details.overview}`,
               url: `${env.NEXT_PUBLIC_URL}/show/${show_details.id}-${show_details.name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`,
             }}
           />
