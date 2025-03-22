@@ -193,20 +193,6 @@ export interface Cast {
   order: number
 }
 
-export interface Crew {
-  adult: boolean
-  gender: number
-  id: number
-  known_for_department: string
-  name: string
-  original_name: string
-  popularity: number
-  profile_path?: string
-  credit_id: string
-  department: string
-  job: string
-}
-
 export interface ShowDetails {
   adult: boolean
   backdrop_path: string
@@ -321,4 +307,62 @@ export interface SearchContextProps {
   query: string;
   slug: string;
   page: string;
+}
+
+export interface Cast_Credits {
+  adult: boolean
+  backdrop_path?: string
+  genre_ids: number[]
+  id: number
+  original_language: string
+  original_title?: string
+  overview: string
+  popularity: number
+  poster_path?: string
+  release_date?: string
+  title?: string
+  video?: boolean
+  vote_average: number
+  vote_count: number
+  character: string
+  credit_id: string
+  order?: number
+  media_type: "movie" | "tv"
+  origin_country?: string[]
+  original_name?: string
+  first_air_date?: string
+  name?: string
+  episode_count?: number
+}
+
+
+export interface Crew {
+  adult: boolean
+  backdrop_path?: string
+  genre_ids: number[]
+  id: number
+  original_language: string
+  original_title?: string
+  overview: string
+  popularity: number
+  poster_path?: string
+  release_date?: string
+  title?: string
+  video?: boolean
+  vote_average: number
+  vote_count: number
+  credit_id: string
+  department: string
+  job: string
+  media_type: string
+  origin_country?: string[]
+  original_name?: string
+  first_air_date?: string
+  name?: string
+  episode_count?: number
+}
+export interface CombinedCredits {
+  cast: Cast_Credits[]
+  crew: Crew[]
+  id: number
 }

@@ -2,8 +2,8 @@ import SearchPage from "@/components/search/SearchPage";
 import env from "@/lib/env";
 import { fetchSearchResults } from "@/lib/fetchSearchResults";
 import { Movie, Person, SearchResultsType, Show } from "@/lib/types";
-import { error } from "console";
 import { Metadata } from "next";
+import NoResultsFound from "@/components/custom/NoResultsFound";
 
 type Props = {
   params: Promise<{ query: string }>;
@@ -17,11 +17,11 @@ export async function generateMetadata({
   const { query } = await searchParams;
 
   return {
-    title: `Search Results for ${query}`,
+    title: query ? `Search Results for ${query}` : "Search",
     description:
       "Your go-to site for finding movies, TV shows, and celebrity details.",
     openGraph: {
-      title: `Search Results for ${query}`,
+      title: query ? `Search Results for ${query}` : "Search",
       description: `Your go-to site for finding movies, TV shows, and celebrity details.`,
       images: [`${env.NEXT_PUBLIC_URL}/logo.png`],
     },
@@ -33,37 +33,48 @@ const Search = async ({
 }: {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
-  const { query, page } = (await searchParams) || "";
-  if (!query) {
-    return <div className="">No search results</div>;
+  const { query, page } = (await searchParams) || {};
+  
+  // If no query is provided
+  if (!query || query.trim() === "") {
+    return <NoResultsFound isEmptyQuery={true} />;
   }
+  
+  // Handle invalid page parameter
   if (page && query) {
-    // console.log(page);
-    throw error("slug is required");
+    return <NoResultsFound query={query} />;
   }
 
-  const allResults: SearchResultsType<Movie | Show | Person> =
-    await fetchSearchResults(query, "multi");
-  console.log(allResults.results);
+  try {
+    const allResults: SearchResultsType<Movie | Show | Person> =
+      await fetchSearchResults(query, "multi");
 
-  const firstSearchType = allResults.results[0].media_type;
-  console.log(firstSearchType);
+    // If no results found
+    if (!allResults.results || allResults.results.length === 0) {
+      return <NoResultsFound query={query} />;
+    }
 
-  const searchResults: SearchResultsType<Movie | Show | Person> =
-    await fetchSearchResults(query, firstSearchType);
+    const firstSearchType = allResults.results[0].media_type;
 
-  const searchData = {
-    page: "1",
-    query,
-    searchResults,
-    slug: firstSearchType,
-  };
+    const searchResults: SearchResultsType<Movie | Show | Person> =
+      await fetchSearchResults(query, firstSearchType);
 
-  return (
-    <div>
-      <SearchPage searchData={searchData} />
-    </div>
-  );
+    const searchData = {
+      page: "1",
+      query,
+      searchResults,
+      slug: firstSearchType,
+    };
+
+    return (
+      <div>
+        <SearchPage searchData={searchData} />
+      </div>
+    );
+  } catch (error) {
+    console.error("Search error:", error);
+    return <NoResultsFound query={query} />;
+  }
 };
 
 export default Search;

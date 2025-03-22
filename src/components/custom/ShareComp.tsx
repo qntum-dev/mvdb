@@ -5,7 +5,7 @@ import { toast } from "sonner";
 const ShareComp = ({ shareData }: { shareData: ShareData }) => {
   return (
     <div
-      className="flex cursor-pointer items-center  lg:border border-yellow-400"
+      className="flex cursor-pointer items-center"
       onClick={async () => {
         if (!navigator.canShare) {
           toast("Web Share API not available");

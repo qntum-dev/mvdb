@@ -1,8 +1,6 @@
 import { KnownFor } from "@/lib/types";
 import Img from "../custom/Img";
 
-import Link from "next/link";
-
 const SearchResultCardCast = ({
   name,
   image_url,
@@ -87,12 +85,12 @@ const SearchResultCardCast = ({
         </div>
 
         <div className="flex flex-col gap-1  items-center lg:items-start">
-          <Link
+          <a
             className="lg:text-xl hover:text-red-400"
             href={`/person/${id}-${name.toLowerCase().replace(/:\s+/g, "-").replace(/\s+/g, "-")}`}
           >
             {name}
-          </Link>
+          </a>
           <p className="">Career: {department}</p>
           {/* <div className="flex gap-4">
             {known_for.map((result) => (

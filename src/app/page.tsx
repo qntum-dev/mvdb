@@ -12,9 +12,11 @@ import { ReactNode, Suspense } from "react";
 // !TODO remove header arrow links 
 // !TODO add genre search
 // !TODO change search result selector layout for mobile
-// !TODO replace <Link/> from pagination with a-tag
-// !TODO add "Known For" section in person details page
-// !TODO add shared button for each details page
+// !TODO add custom share component for pc screen in each details page
+// TODO replace <Link/> from pagination with a-tag
+// TODO add "Known For" section in person details page
+// TODO add shared button for each details page
+// TODO add no search results found component 
 
 
 
@@ -149,7 +151,7 @@ const Section = ({ title, redPart, children, linkTo = "trending", type = "movie"
 export default function Home() {
   return (
     <div className="flex flex-col gap-[80px]">
-      <Section title="Tren" redPart="ding today">
+      <Section title="Tren" redPart="ding today" linkTo="trending-movies">
         <Suspense fallback={<GenericSkeleton />}>
           <TrendingMovies />
         </Suspense>
@@ -161,13 +163,13 @@ export default function Home() {
         </Suspense>
       </Section>
 
-      <Section title="Pop" redPart="ular Movies">
+      <Section title="Pop" redPart="ular Movies" linkTo="popular-movies">
         <Suspense fallback={<GenericSkeleton />}>
           <PopularMovies />
         </Suspense>
       </Section>
 
-      <Section title="Tren" redPart="ding Shows">
+      <Section title="Tren" redPart="ding Shows" linkTo="trending-shows">
         <Suspense fallback={<GenericSkeleton />}>
           <TrendingShows />
         </Suspense>
