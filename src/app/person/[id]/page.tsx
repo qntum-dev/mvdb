@@ -14,34 +14,34 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import Slider from "@/components/custom/Slider";
 
+
+// function getTop8ByVoteCount(credits: CombinedCredits): CombinedCredits {
+//   // Combine cast and crew into one array
+//   const allCredits = [...credits.cast, ...credits.crew];
+  
+//   // Sort by vote_count in descending order
+//   allCredits.sort((a, b) => b.vote_count - a.vote_count);
+  
+//   // Extract top 8 credits
+//   const top8 = allCredits.slice(0, 8).reverse();
+  
+//   // Separate back into cast and crew
+//   const topCast = top8.filter(
+//     (credit) => "character" in credit
+//   ) as Cast_Credits[];
+//   const topCrew = top8.filter((credit) => "job" in credit) as Crew[];
+  
+//   return {
+//     cast: topCast,
+//     crew: topCrew,
+//     id: credits.id,
+//   };
+// }
+
 type Props = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
-
-export function getTop8ByVoteCount(credits: CombinedCredits): CombinedCredits {
-  // Combine cast and crew into one array
-  const allCredits = [...credits.cast, ...credits.crew];
-
-  // Sort by vote_count in descending order
-  allCredits.sort((a, b) => b.vote_count - a.vote_count);
-
-  // Extract top 8 credits
-  const top8 = allCredits.slice(0, 8).reverse();
-
-  // Separate back into cast and crew
-  const topCast = top8.filter(
-    (credit) => "character" in credit
-  ) as Cast_Credits[];
-  const topCrew = top8.filter((credit) => "job" in credit) as Crew[];
-
-  return {
-    cast: topCast,
-    crew: topCrew,
-    id: credits.id,
-  };
-}
-
 // export function getTop8ByCustomRanking(credits: CombinedCredits): CombinedCredits {
 //   // Combine cast and crew into one array
 //   const allCredits = [...credits.cast, ...credits.crew];
@@ -74,7 +74,7 @@ export function getTop8ByVoteCount(credits: CombinedCredits): CombinedCredits {
 //   };
 // }
 
-export function getTop8ByCustomRanking(credits: CombinedCredits): (Cast_Credits | Crew)[] {
+function getTop8ByCustomRanking(credits: CombinedCredits): (Cast_Credits | Crew)[] {
   // Combine cast and crew into one array
   const allCredits = [...credits.cast, ...credits.crew];
 
@@ -110,42 +110,42 @@ export function getTop8ByCustomRanking(credits: CombinedCredits): (Cast_Credits 
 
 
 
-export function getKnownFor(credits: CombinedCredits): Cast_Credits[] {
-  // Combine cast and crew into one array (considering only cast for "known for")
-  const allCredits = credits.cast.filter(
-    (credit) => credit.order !== undefined && credit.order < 25
-  );
+// function getKnownFor(credits: CombinedCredits): Cast_Credits[] {
+//   // Combine cast and crew into one array (considering only cast for "known for")
+//   const allCredits = credits.cast.filter(
+//     (credit) => credit.order !== undefined && credit.order < 25
+//   );
 
-  // Define a ranking formula based on TMDB's known_for logic
-  const rankScore = (credit: Cast_Credits) => {
-    const orderScore =
-      "order" in credit && credit.order !== undefined
-        ? -(credit.order + 1) * 10
-        : 0; // Higher priority for lower order values
+//   // Define a ranking formula based on TMDB's known_for logic
+//   const rankScore = (credit: Cast_Credits) => {
+//     const orderScore =
+//       "order" in credit && credit.order !== undefined
+//         ? -(credit.order + 1) * 10
+//         : 0; // Higher priority for lower order values
 
-    const releaseDate = credit.release_date
-      ? new Date(credit.release_date).getTime() * 0.0000001
-      : 0;
-    return (
-      credit.vote_count * 10.0 + // Highest weight for vote count
-      releaseDate * 0.001 + // Higher weight for newer release date
-      orderScore + // Higher priority for lower order values
-      credit.vote_average * 1.0 +
-      credit.popularity * 10 // Newer release date has some impact
-    );
-  };
+//     const releaseDate = credit.release_date
+//       ? new Date(credit.release_date).getTime() * 0.0000001
+//       : 0;
+//     return (
+//       credit.vote_count * 10.0 + // Highest weight for vote count
+//       releaseDate * 0.001 + // Higher weight for newer release date
+//       orderScore + // Higher priority for lower order values
+//       credit.vote_average * 1.0 +
+//       credit.popularity * 10 // Newer release date has some impact
+//     );
+//   };
 
-  // Sort by the ranking score in descending order
-  allCredits.sort((a, b) => rankScore(b) - rankScore(a));
+//   // Sort by the ranking score in descending order
+//   allCredits.sort((a, b) => rankScore(b) - rankScore(a));
 
-  // Extract top 10 known_for titles
-  const topCredits = allCredits.slice(0, 10);
+//   // Extract top 10 known_for titles
+//   const topCredits = allCredits.slice(0, 10);
 
-  // Sort the final result by vote count in descending order
-  topCredits.sort((a, b) => b.vote_count - a.vote_count);
+//   // Sort the final result by vote count in descending order
+//   topCredits.sort((a, b) => b.vote_count - a.vote_count);
 
-  return topCredits;
-}
+//   return topCredits;
+// }
 
 
 
