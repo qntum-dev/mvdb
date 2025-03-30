@@ -6,6 +6,7 @@ import SearchForm from "@/components/search/SearchForm";
 import { Suspense } from "react";
 import env from "@/lib/env";
 import { Toaster } from "sonner";
+import Logo from "@/components/custom/Logo";
 // import { SearchContextProvider } from "@/components/search/SearchContextProvider";
 
 const geistSans = Geist({
@@ -24,19 +25,16 @@ export const metadata: Metadata = {
     "Your go-to site for finding movies, TV shows, and celebrity details.",
   icons: {
     icon: ["/favicon.ico"],
-    apple:["/apple-touch-icon.png"],
-    shortcut:["/apple-touch-icon.png"]
-
+    apple: ["/apple-touch-icon.png"],
+    shortcut: ["/apple-touch-icon.png"],
   },
-  openGraph:{
+  openGraph: {
     // url:
-    type:"website",
-    images:[
-      `${env.NEXT_PUBLIC_URL}/logo.png`
-    ]
-  }
+    type: "website",
+    images: [`${env.NEXT_PUBLIC_URL}/logo.png`],
+  },
 };
-// http://localhost:3000/_next/image?url=%2Fmvdb.png&w=1080&q=75 
+// http://localhost:3000/_next/image?url=%2Fmvdb.png&w=1080&q=75
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -52,16 +50,19 @@ export default function RootLayout({
           enableSystem={false}
           attribute="class"
         >
-          
+              <div className="flex items-center gap-4 justify-center mt-4">
+                <Logo/>
+                <div className="w-[450px]">
+                  <SearchForm />
+                </div>
+              </div>
           <Suspense>
             <div className="mt-2">
-              <SearchForm />
             </div>
             <main className="mx-2 pt-6 lg:mx-[150px] md:mx-4 mb-8">
               {children}
             </main>
             <Toaster />
-
           </Suspense>
         </ThemeProvider>
       </body>
