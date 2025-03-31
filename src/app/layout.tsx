@@ -51,13 +51,18 @@ export default function RootLayout({
           attribute="class"
         >
           <Suspense>
-              <div className="flex flex-col items-center gap-4 mt-4">
-                <Logo/>
-                <div className="lg:w-[60%] w-[95%]">
-                  <SearchForm />
-                </div>
+            <div className="flex flex-col lg:flex-row items-center gap-4 mt-4 lg:justify-center">
+              <div className="hidden lg:block">
+                <Logo w={100} h={100} />
               </div>
-            
+              <div className="lg:hidden">
+                <Logo w={150} h={150} />
+              </div>
+              <div className="lg:w-[60%] w-[95%]">
+                <SearchForm />
+              </div>
+            </div>
+
             <main className="mx-2 pt-6 lg:mx-[150px] md:mx-4 mb-8">
               {children}
             </main>
