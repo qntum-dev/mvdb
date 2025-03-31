@@ -50,15 +50,14 @@ export default function RootLayout({
           enableSystem={false}
           attribute="class"
         >
+          <Suspense>
               <div className="flex items-center gap-4 justify-center mt-4">
                 <Logo/>
                 <div className="w-[450px]">
                   <SearchForm />
                 </div>
               </div>
-          <Suspense>
-            <div className="mt-2">
-            </div>
+            
             <main className="mx-2 pt-6 lg:mx-[150px] md:mx-4 mb-8">
               {children}
             </main>
