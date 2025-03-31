@@ -51,9 +51,9 @@ export default function RootLayout({
           attribute="class"
         >
           <Suspense>
-              <div className="flex items-center gap-4 justify-center mt-4">
+              <div className="flex flex-col items-center gap-4 mt-4">
                 <Logo/>
-                <div className="w-[450px]">
+                <div className="lg:w-[60%] w-[95%]">
                   <SearchForm />
                 </div>
               </div>
