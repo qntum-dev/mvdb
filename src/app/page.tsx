@@ -5,37 +5,41 @@ import MoviesCard from "@/components/Movies/MoviesCard";
 import ShowsCard from "@/components/Shows/ShowsCard";
 import kyServer from "@/lib/ky";
 import { Movies, Persons, Shows } from "@/lib/types";
-import { ChevronRight } from "lucide-react";
+// import { ChevronRight } from "lucide-react";
 import { ReactNode, Suspense } from "react";
 
-
-// !TODO remove header arrow links 
-// !TODO add genre search
+// TODO remove header arrow links
 // !TODO change search result selector layout for mobile
 // !TODO add custom share component for pc screen in each details page
 // TODO replace <Link/> from pagination with a-tag
 // TODO add "Known For" section in person details page
 // TODO add shared button for each details page
-// TODO add no search results found component 
-
-
-
+// TODO add no search results found component
 
 // Reusable section header component
-const SectionHeader = ({ title, redPart, linkTo = "trending" }:{ title:string, redPart:string, linkTo:string }) => (
+const SectionHeader = ({
+  title,
+  redPart,
+  // linkTo = "trending",
+}: {
+  title: string;
+  redPart: string;
+  // linkTo: string;
+}) => (
   <div className="w-fit group">
-    <a href={linkTo}>
-      <div className="flex items-center w-fit">
         <p className="text-3xl font-bold">
-          {title}<span className="text-red-500">{redPart}</span>
+          {title}
+          <span className="text-red-500">{redPart}</span>
         </p>
+      {/* <div className="flex items-center w-fit">
         <ChevronRight
           strokeWidth={3}
           size={40}
           className="text-white duration-200 group-hover:text-red-500"
         />
-      </div>
-    </a>
+      </div> */}
+    {/* <a href={linkTo}>
+    </a> */}
   </div>
 );
 
@@ -43,7 +47,7 @@ const SectionHeader = ({ title, redPart, linkTo = "trending" }:{ title:string, r
 const GenericSkeleton = ({ length = 15, type = "movie" }) => (
   <Slider
     gap="10"
-    elements={Array.from({ length }).map((_, index) => (
+    elements={Array.from({ length }).map((_, index) =>
       type === "person" ? (
         <div key={index} className="flex flex-col items-center gap-4">
           <div className="w-[200px] h-[200px] bg-gray-700 rounded-full border border-gray-600" />
@@ -52,13 +56,15 @@ const GenericSkeleton = ({ length = 15, type = "movie" }) => (
       ) : (
         <MovieCardSkeleton key={index} />
       )
-    ))}
+    )}
   />
 );
 
 // Component for trending movies section
 async function TrendingMovies() {
-  const trending_movies: Movies = await kyServer.get("trending/movie/day").json();
+  const trending_movies: Movies = await kyServer
+    .get("trending/movie/day")
+    .json();
   return (
     <Slider
       gap="10"
@@ -74,9 +80,9 @@ async function PopularPeople() {
   const popular_people: Persons = await kyServer.get("person/popular").json();
   // console.log(popular_people);
   console.log(popular_people);
-  
-  popular_people.results.map((people)=>console.log(people.profile_path));
-  
+
+  popular_people.results.map((people) => console.log(people.profile_path));
+
   return (
     <Slider
       gap="6"
@@ -87,10 +93,23 @@ async function PopularPeople() {
         >
           <div className="group flex flex-col items-center gap-4">
             {people.profile_path ? (
-              
-              <Img w="200" h="200" path={`t/p/w276_and_h350_face${people.profile_path}`} alt={people.name} rounded="full" border="border-red-400"/>
-            ):(
-              <Img w="200" h="200" path={`https://avatar.iran.liara.run/username?username=${people.name.split(" ")[0]}+${people.name.split(" ")[1]}`} alt={people.name} rounded="full" border="border-red-400"/>
+              <Img
+                w="200"
+                h="200"
+                path={`t/p/w276_and_h350_face${people.profile_path}`}
+                alt={people.name}
+                rounded="full"
+                border="border-red-400"
+              />
+            ) : (
+              <Img
+                w="200"
+                h="200"
+                path={`https://avatar.iran.liara.run/username?username=${people.name.split(" ")[0]}+${people.name.split(" ")[1]}`}
+                alt={people.name}
+                rounded="full"
+                border="border-red-400"
+              />
             )}
             {/* <div
               className="w-[200px] h-[200px] bg-cover bg-center rounded-full border border-red-600"
@@ -98,7 +117,9 @@ async function PopularPeople() {
                 backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL}/t/p/w276_and_h350_face/${people.profile_path})`,
               }}
             ></div> */}
-            <div className="group-hover:text-red-400 duration-200">{people.name}</div>
+            <div className="group-hover:text-red-400 duration-200">
+              {people.name}
+            </div>
           </div>
         </a>
       ))}
@@ -133,17 +154,30 @@ async function TrendingShows() {
 }
 
 // Component for a section with title and content
-const Section = ({ title, redPart, children, linkTo = "trending", type = "movie" }:{ title:string, redPart:string, children:ReactNode, linkTo?:string,type?:string }) => (
+const Section = ({
+  title,
+  redPart,
+  children,
+  // linkTo = "trending",
+  type = "movie",
+}: {
+  title: string;
+  redPart: string;
+  children: ReactNode;
+  linkTo?: string;
+  type?: string;
+}) => (
   <div className="flex flex-col gap-10">
-    {title && (
-      type === "person" ? (
+    {title &&
+      (type === "person" ? (
         <p className="text-2xl font-bold">
           {title} <span className="text-red-500">{redPart}</span>
         </p>
       ) : (
-        <SectionHeader title={title} redPart={redPart} linkTo={linkTo} />
-      )
-    )}
+        // <SectionHeader title={title} redPart={redPart} linkTo={linkTo} />
+        <SectionHeader title={title} redPart={redPart} />
+
+      ))}
     {children}
   </div>
 );
